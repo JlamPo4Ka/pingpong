@@ -4,34 +4,53 @@ fpsiki = time.Clock()
 FPS = 60
 okno = display.set_mode((700, 500))
 #
-background = transform.scale(image.load("fonchik.jpg"), (1280, 700))
-gg = transform.scale(image.load("sprite2.png"), (70, 70))
-g2g = transform.scale(image.load("sprite1.png"), (70, 70))
+background = transform.scale(image.load("fonchik.jpg"), (700, 500))
+class objekt(sprite.Sprite): #основной класс
+    def __init__(self, pic, px, py):    
+        super().__init__()
+        self.image = transform.scale(image.load(pic), (50, 50))
+        self.rect = self.image.get_rect()
+        self.rect.x = px
+        self.rect.y = py
+    def reset(self):
+        okno.blit(self.image, (self.rect.x, self.rect.y))
+class playir(objekt): #игрок
+    def update(self):
+        keys_pressed = key.get_pressed()
+        if keys_pressed[K_DOWN] and self.rect.y < 480 - 50: #вниз
+            self.rect.y += 6
+        if keys_pressed[K_UP] and self.rect.y > 50 - 50: #вверх
+            self.rect.y -= 6
+gg = playir("sprite2.png", 25, 100)
+#игрок2
+class playir2(objekt): #игрок2
+    def update(self):
+        keys_pressed = key.get_pressed()
+        if keys_pressed[K_s] and self.rect.y < 480 - 50: #вниз
+            self.rect.y += 6
+        if keys_pressed[K_w] and self.rect.y > 50 - 50: #вверх
+            self.rect.y -= 6
+g2g = playir("sprite1.png", 625, 100)
+class ball(objekt): #мяч
+    def update(self):
+        if self.rect.x < 0:
+            self.rect.x += 3
+myach = ball("stone_.png", 320, 200)
 #
-y1 = 100
-x1 = 25
-y2 = 100
-x2 = 600
+
 gm = True
 while gm:
     #okno.fill((46, 139, 87))
     okno.blit(background, (0, 0))
-    okno.blit(gg, (x1, y1))
-    okno.blit(g2g, (x2, y2))
     for e in event.get():
         if e.type == QUIT:
             gm = False
-    keys_pressed = key.get_pressed()
-    if keys_pressed[K_DOWN]:
-        y1 += 5
-    if keys_pressed[K_UP]:
-        y1 -= 5
-#2 игрок
-
-    if keys_pressed[K_s]:
-        y2 += 5
-    if keys_pressed[K_w]:
-        y2 -= 5
 #
+    myach.update()
+    myach.reset()
+    gg.update()
+    gg.reset()
+    g2g.update()
+    g2g.reset()
     display.update()
     fpsiki.tick(FPS) 
