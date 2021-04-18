@@ -1,10 +1,11 @@
 from pygame import *
-#
+#окно и фпс
 fpsiki = time.Clock()
 FPS = 60
 okno = display.set_mode((700, 500))
-#
+#фон
 background = transform.scale(image.load("FON.png"), (700, 500))
+#классы
 class objekt(sprite.Sprite): #основной класс
     def __init__(self, pic, px, py, ph, pw):    
         super().__init__()
@@ -22,7 +23,6 @@ class playir(objekt): #игрок
         if keys_pressed[K_w] and self.rect.y > 50 - 50: #вверх
             self.rect.y -= 6
 gg = playir("sprite2.png", 25, 100, 65, 65)
-#игрок2
 class playir2(objekt): #игрок2
     def update(self):
         keys_pressed = key.get_pressed()
@@ -34,18 +34,16 @@ g2g = playir2("sprite1.png", 625, 100, 65 ,65)
 class ball(objekt): #мяч
     def update(self):
         if self.rect.x < 0:
-            self.rect.x += 3
+            self.rect.x += 4
 myach = ball("Ball.png", 320, 200, 110, 65)
-#
-
+#игровой цикл
 gm = True
 while gm:
-    #okno.fill((46, 139, 87))
     okno.blit(background, (0, 0))
     for e in event.get():
         if e.type == QUIT:
             gm = False
-#
+#функции
     myach.update()
     myach.reset()
     gg.update()
