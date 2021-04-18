@@ -4,11 +4,11 @@ fpsiki = time.Clock()
 FPS = 60
 okno = display.set_mode((700, 500))
 #
-background = transform.scale(image.load("fonchik.jpg"), (700, 500))
+background = transform.scale(image.load("FON.png"), (700, 500))
 class objekt(sprite.Sprite): #основной класс
     def __init__(self, pic, px, py):    
         super().__init__()
-        self.image = transform.scale(image.load(pic), (50, 50))
+        self.image = transform.scale(image.load(pic), (75, 65))
         self.rect = self.image.get_rect()
         self.rect.x = px
         self.rect.y = py
@@ -17,25 +17,25 @@ class objekt(sprite.Sprite): #основной класс
 class playir(objekt): #игрок
     def update(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_DOWN] and self.rect.y < 480 - 50: #вниз
+        if keys_pressed[K_s] and self.rect.y < 480 - 50: #вниз
             self.rect.y += 6
-        if keys_pressed[K_UP] and self.rect.y > 50 - 50: #вверх
+        if keys_pressed[K_w] and self.rect.y > 50 - 50: #вверх
             self.rect.y -= 6
 gg = playir("sprite2.png", 25, 100)
 #игрок2
 class playir2(objekt): #игрок2
     def update(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_s] and self.rect.y < 480 - 50: #вниз
+        if keys_pressed[K_DOWN] and self.rect.y < 480 - 50: #вниз
             self.rect.y += 6
-        if keys_pressed[K_w] and self.rect.y > 50 - 50: #вверх
+        if keys_pressed[K_UP] and self.rect.y > 50 - 50: #вверх
             self.rect.y -= 6
-g2g = playir("sprite1.png", 625, 100)
+g2g = playir2("sprite1.png", 625, 100)
 class ball(objekt): #мяч
     def update(self):
         if self.rect.x < 0:
             self.rect.x += 3
-myach = ball("stone_.png", 320, 200)
+myach = ball("images.jpg", 320, 200)
 #
 
 gm = True
