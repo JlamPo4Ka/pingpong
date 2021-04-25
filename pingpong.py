@@ -1,4 +1,5 @@
 from pygame import *
+from random import randint
 #?окно и фпс
 fpsiki = time.Clock()
 FPS = 60
@@ -31,29 +32,27 @@ class playir2(objekt): #*игрок2
         if keys_pressed[K_UP] and self.rect.y > 50 - 50: #вверх
             self.rect.y -= 6
 g2g = playir2("sprite1.png", 625, 100, 65 ,65)
-class ball(objekt): #*мяч
-    def update(self):
-        if self.rect.x < 0:
-            self.rect.x += 4
-myach = ball("Ball.png", 320, 200, 110, 65)
+myach = objekt("ball4ik.png", 300, 200, 45, 45)
+
+bsy = 3.5
+bsx = -3.5
+
+font.init() #шрифт
+font = font.Font(None, 35)
+
 #?игровой цикл
 gm = True
 while gm:
+    myach.rect.x += bsx
+    myach.rect.y += bsy
+    if myach.rect.y < 0:
+        bsy *= -1
+    if myach.rect.y > 435:
+        bsy *= -1
     okno.blit(background, (0, 0))
     for e in event.get():
         if e.type == QUIT:
             gm = False
-
-#!поведение мяча
-#!bsy = 5
-#!bsx = -5
-#!после while
-#!мяч.rect.x += bsx
-#!мяч.rect.y += bsy
-#!столкновение
-#!bsx *= -1
-#!bsy *= -1
-
 #?функции
     myach.update()
     myach.reset()
@@ -62,4 +61,10 @@ while gm:
     g2g.update()
     g2g.reset()
     display.update()
+    if sprite.collide_rect(myach, gg): #столкновение мяча и игрока (слево)
+        bsx *= -1
+        bsy *= -1
+    if sprite.collide_rect(myach, g2g): #столкновение мяча и игрока2 (справо)
+        bsx *= -1
+        bsy *= -1
     fpsiki.tick(FPS) 
