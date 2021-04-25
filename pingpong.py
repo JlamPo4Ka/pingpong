@@ -67,4 +67,28 @@ while gm:
     if sprite.collide_rect(myach, g2g): #столкновение мяча и игрока2 (справо)
         bsx *= -1
         bsy *= -1
+    ulos = font.render("Игрок 1 проиграл", True, (255, 255, 255))
+    ulos2 = font.render("Игрок 2 проиграл", True, (255, 255, 255))
+    if myach.rect.x < gg.rect.x - 75:
+        game = False
+        antifin = True
+        while antifin:
+            okno.fill((0, 0, 0))
+            okno.blit(ulos, (100,100))
+            display.update()
+            for e in event.get():
+                if e.type == QUIT:
+                    gm = False
+                    antifin = False
+    if myach.rect.x > g2g.rect.x + 75:
+        game = False
+        antifin = True
+        while antifin:
+            okno.fill((0, 0, 0))
+            okno.blit(ulos, (100,100))
+            display.update()
+            for e in event.get():
+                if e.type == QUIT:
+                    gm = False
+                    antifin = False
     fpsiki.tick(FPS) 
