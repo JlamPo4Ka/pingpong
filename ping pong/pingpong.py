@@ -85,7 +85,7 @@ while gm:
         antifin = True
         while antifin:
             okno.fill((0, 0, 0))
-            okno.blit(ulos, (100,100))
+            okno.blit(ulos2, (100,100))
             display.update()
             for e in event.get():
                 if e.type == QUIT:
